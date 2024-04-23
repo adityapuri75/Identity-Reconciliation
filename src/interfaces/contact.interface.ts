@@ -14,8 +14,19 @@ interface Contact {
   deletedAt?: Date;
 }
 
+interface ContactResponseData {
+  contact: {
+    primaryContactId: number;
+    emails: string[];
+    phoneNumbers: string[];
+    secondaryContactIds: number[];
+  };
+}
+
 interface CreateContactDto extends Omit<Contact, 'id' | 'updatedAt' | 'deletedAt'> {}
 
 interface UpdateContactDto extends Partial<Omit<Contact, 'id' | 'createdAt' | 'updatedAt' | 'deletedAt'>> {}
 
-export { LinkPrecedence, Contact, CreateContactDto, UpdateContactDto };
+interface IdentifyContactDto extends Partial<Omit<Contact, 'id' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'linkedId' | 'linkPrecedence'>> {}
+
+export { LinkPrecedence, Contact, CreateContactDto, UpdateContactDto, IdentifyContactDto, ContactResponseData };

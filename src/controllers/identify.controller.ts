@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { Container } from 'typedi';
-import { Contact } from '@interfaces/contact.interface';
+import { IdentifyContactDto, ContactResponseData} from '@interfaces/contact.interface';
 import { IdentifyService } from '@services/identify.service';
 
 export class IdentifyController {
@@ -8,10 +8,10 @@ export class IdentifyController {
 
   public identifyContact = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const userData: Contact = req.body;
-    //   const createUserData: Contact = await this.user.identifyContact(userData);
+      const contactData: IdentifyContactDto = req.body;
+      const identifyContactData: ContactResponseData = await this.user.identifyContact(contactData);
 
-    //   res.status(201).json({ data: createUserData, message: 'created' });
+      res.status(201).json({ data: identifyContactData, message: 'created' });
     } catch (error) {
       next(error);
     }
