@@ -23,10 +23,10 @@ interface ContactResponseData {
   };
 }
 
-interface CreateContactDto extends Omit<Contact, 'id' | 'updatedAt' | 'deletedAt'> {}
+type CreateContactDto = Omit<Contact, 'id' | 'updatedAt' | 'deletedAt'>;
 
-interface UpdateContactDto extends Partial<Omit<Contact, 'id' | 'createdAt' | 'updatedAt' | 'deletedAt'>> {}
+type UpdateContactDto = Partial<Omit<Contact, 'id' | 'createdAt' | 'updatedAt' | 'deletedAt'>>;
 
-interface IdentifyContactDto extends Partial<Omit<Contact, 'id' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'linkedId' | 'linkPrecedence'>> {}
+type IdentifyContactDto = Partial<Omit<Contact, 'id' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'linkedId' | 'linkPrecedence'>>;
 
 export { LinkPrecedence, Contact, CreateContactDto, UpdateContactDto, IdentifyContactDto, ContactResponseData };

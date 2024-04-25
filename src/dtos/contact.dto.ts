@@ -35,7 +35,6 @@ export class CreateContactDto {
   public deletedAt?: Date;
 }
 export class IdentifyContactDto {
-
   @IsString()
   @IsOptional()
   public phoneNumber?: string;
@@ -43,7 +42,6 @@ export class IdentifyContactDto {
   @IsString()
   @IsOptional()
   public email?: string;
-
 }
 
 export class UpdateContactDto {
