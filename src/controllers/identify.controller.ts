@@ -11,7 +11,7 @@ export class IdentifyController {
       const contactData: IdentifyContactDto = req.body;
       const identifyContactData: ContactResponseData = await this.user.identifyContact(contactData);
 
-      res.status(201).json({ data: identifyContactData, message: 'created' });
+      res.status(200).json( identifyContactData );
     } catch (error) {
       next(error);
     }

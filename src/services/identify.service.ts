@@ -7,13 +7,6 @@ export class IdentifyService {
   public async identifyContact(userData: IdentifyContactDto) {
     const { email, phoneNumber } = userData;
 
-    // const queryText = `
-    // DELETE FROM contacts;
-    // `;
-    // const { rows: matchingContacts } = await pg.query(queryText);
-
-    // console.log(matchingContacts)
-
     // Query the database for matching contacts
     const queryText = `
     WITH AllContacts AS (
@@ -45,9 +38,6 @@ export class IdentifyService {
     `;
     const { rows: matchingContacts } = await pg.query(queryText, [email, phoneNumber]);
 
-    console.log('matchingContacts');
-    console.log(matchingContacts);
-
     // Check if there are any matching contacts
     if (matchingContacts.length === 0) {
       // Create a new primary contact
@@ -72,8 +62,6 @@ export class IdentifyService {
       const primaryContacts = matchingContacts.filter(contact => contact.linkprecedence === 'primary');
       const secondaryContacts = matchingContacts.filter(contact => contact.linkprecedence === 'secondary');
 
-      console.log('primaryContacts');
-      console.log(primaryContacts);
       // Sort primary contacts by createdAt timestamp to pick the oldest one as primary
       primaryContacts.sort((firstContact, secondContact) => new Date(firstContact.createdAt).getTime() - new Date(secondContact.createdAt).getTime());
       const primaryContact = primaryContacts[0]; // Pick the oldest primary
@@ -89,15 +77,12 @@ export class IdentifyService {
       FROM contacts
       WHERE phoneNumber = $1;
       `;
+
       const { rows: checkEmail } = await pg.query(queryText1, [email]);
-      console.log('checkEmail');
-      console.log(checkEmail);
 
       const { rows: checkNumber } = await pg.query(queryText2, [phoneNumber]);
-      console.log('checkNumber');
-      console.log(checkNumber);
-      // if there are multiple primaryContacts then will update the ramaning as scandory
 
+      // if there are multiple primaryContacts then will update the ramaning as scandory
       const secondaryContactIds = [];
       if (primaryContacts.length > 1) {
         // Update remaining primary contacts to secondary
